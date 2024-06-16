@@ -1,0 +1,9 @@
+*.vs
+*.sln
+*.vcxitems
+*.vcxproj
+*.vcxproj.*
+output
+premake5.exe
+*.tga
+*.dat
