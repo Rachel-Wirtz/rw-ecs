@@ -18,6 +18,8 @@ public:
 
     bool contains(Entity entity) const noexcept;
 
+    Entity count(void) const noexcept;
+
     iterator begin(void) noexcept;
     iterator end(void) noexcept;
 
@@ -56,6 +58,13 @@ void basic_entity_pool<Entity>::pop(Entity entity) {
 template<std::unsigned_integral Entity>
 bool basic_entity_pool<Entity>::contains(Entity entity) const noexcept {
     return m_Indices.contains(entity);
+}
+
+template<std::unsigned_integral Entity>
+Entity basic_entity_pool<Entity>::count(void) const noexcept {
+    size_t result = m_Data.size();
+    assert(result < static_cast<size_t>(invalid_entity<Entity>));
+    return result < invalid_entity<Entity> ? static_cast<Entity>(result) : invalid_entity<Entity>;
 }
 
 template<std::unsigned_integral Entity>

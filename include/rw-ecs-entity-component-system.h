@@ -10,14 +10,15 @@ class basic_entity_component_system {
 public:
     using entity_manager_type    = basic_entity_manager<Entity>;
     using component_manager_type = basic_component_manager<Entity>;
-    using system_manager_type    = basic_system_manager<Entity>;
+    using system_manager_type    = basic_component_system_manager<Entity>;
 
     basic_entity_component_system();
 
-    Entity create_entity(void);
-    void destroy_entity(Entity entity);
-    bool validate_entity(Entity entity) const noexcept;
+    [[nodiscard]] Entity create_entity(void);
 
+    [[nodiscard]] bool validate_entity(Entity entity) const noexcept;
+
+    void destroy_entity(Entity entity);
 
     template<typename Component>
     void register_component(void);
@@ -26,26 +27,26 @@ public:
     Component& add_component(Entity entity, Args&& ... args);
 
     template<typename Component>
+    [[nodiscard]] const Component& get_component(Entity entity) const;
+
+    template<typename Component>
+    [[nodiscard]] Component& get_component(Entity entity);
+
+    template<typename Component>
+    [[nodiscard]] bool has_component(Entity entity) const noexcept;
+
+    template<typename Component>
     void remove_component(Entity entity);
-
-    template<typename Component>
-    const Component& get_component(Entity entity) const;
-
-    template<typename Component>
-    Component& get_component(Entity entity);
-
-    template<typename Component>
-    bool has_component(Entity entity) const noexcept;
 
 
     template<is_user_system<Entity> UserSystem, typename ... Args> requires std::constructible_from<UserSystem, Args...>
     UserSystem& register_system(Args&& ... args);
 
     template<is_user_system<Entity> UserSystem>
-    UserSystem& get_system(void);
+    [[nodiscard]] UserSystem& get_system(void);
 
     template<is_user_system<Entity> UserSystem>
-    bool has_system(void) const noexcept;
+    [[nodiscard]] bool has_system(void) const noexcept;
 
 private:
     template<is_user_system<Entity> UserSystem, size_t N = 0>

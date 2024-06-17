@@ -15,7 +15,6 @@ public:
 private:
     basic_entity_pool<Entity> m_Entities{};
     std::queue<Entity>        m_RemovedIds{};
-    Entity                    m_MaxId{};
 };
 
 template<std::unsigned_integral Entity>
@@ -26,7 +25,7 @@ Entity basic_entity_manager<Entity>::create_entity(void) {
         m_RemovedIds.pop();
     }
     else {
-        result = ++m_MaxId;
+        result = m_Entities.count();
     }
     m_Entities.push(result);
     return result;
