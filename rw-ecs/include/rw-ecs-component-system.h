@@ -71,7 +71,7 @@ bool component_system<UserSystem>::has_components(entity_handle entity) const no
     }
     else {
         using Component = std::tuple_element_t<N, typename UserSystem::component_list>;
-        if (!this->registry()->has_component<Component>(entity)) {
+        if (!m_ECS->has_component<Component>(entity)) {
             return false;
         }
         return this->has_components<N + 1>(entity);
