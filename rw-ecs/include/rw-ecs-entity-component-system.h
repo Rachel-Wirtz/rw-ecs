@@ -5,6 +5,8 @@ RW_ECS_NAMESPACE_BEGIN
 class entity_component_system {
 public:
     entity_component_system();
+    entity_component_system(entity_component_system&&) = default;
+    entity_component_system& operator=(entity_component_system&&) = default;
 
     [[nodiscard]] entity_handle create_entity(void);
 
@@ -48,6 +50,9 @@ private:
     entity_manager           m_EntityManager;
     component_manager        m_ComponentManager;
     component_system_manager m_SystemManager;
+
+    entity_component_system(const entity_component_system&) = delete;
+    entity_component_system& operator=(const entity_component_system&) = delete;
 };
 
 template<typename Component>

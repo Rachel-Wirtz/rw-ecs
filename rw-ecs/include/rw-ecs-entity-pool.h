@@ -9,6 +9,10 @@ public:
     using iterator       = std::vector<entity_handle>::iterator;
     using const_iterator = std::vector<entity_handle>::const_iterator;
 
+    entity_pool() = default;
+    entity_pool(entity_pool&&) = default;
+    entity_pool& operator=(entity_pool&&) = default;
+
     void push(entity_handle entity);
     void pop(entity_handle entity);
 
@@ -25,6 +29,9 @@ public:
 private:
     std::unordered_map<entity_handle, size_t> m_Indices{};
     std::vector<entity_handle>                m_Data{};
+
+    entity_pool(const entity_pool&) = delete;
+    entity_pool& operator=(const entity_pool&) = delete;
 };
 
 RW_ECS_NAMESPACE_END

@@ -17,6 +17,10 @@ public:
     using iterator       = typename data_type::iterator;
     using const_iterator = typename data_type::const_iterator;
 
+    component_pool() = default;
+    component_pool(component_pool&&) = default;
+    component_pool& operator=(component_pool&&) = default;
+
     template<typename ... Args> requires std::constructible_from<Component, Args...>
     Component& push(entity_handle entity, Args&& ... args);
 
@@ -33,6 +37,9 @@ private:
     indices_type  m_Indices{};
     entities_type m_Entities{};
     data_type     m_Components{};
+
+    component_pool(const component_pool&) = delete;
+    component_pool& operator=(const component_pool&) = delete;
 };
 
 template<typename Component>

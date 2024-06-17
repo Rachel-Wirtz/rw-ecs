@@ -14,6 +14,10 @@ public:
 template<typename UserSystem>
 class component_system : public icomponent_system {
 public:
+    component_system() = default;
+    component_system(component_system&&) = default;
+    component_system& operator=(component_system&&) = default;
+
     std::span<const entity_handle> entities(void) const noexcept;
 
     const entity_component_system* registry(void) const noexcept;
@@ -31,6 +35,9 @@ private:
     entity_component_system* m_ECS{};
 
     friend class component_system_manager;
+
+    component_system(const component_system&) = delete;
+    component_system& operator=(const component_system&) = delete;
 };
 
 template<typename UserSystem>

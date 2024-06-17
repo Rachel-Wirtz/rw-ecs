@@ -4,8 +4,10 @@ RW_ECS_NAMESPACE_BEGIN
 
 class component_system_manager {
 public:
-    component_system_manager() = delete;
+    component_system_manager() = default;
     component_system_manager(entity_component_system* ecs);
+    component_system_manager(component_system_manager&&) = default;
+    component_system_manager& operator=(component_system_manager&&) = default;
 
     template<is_user_system UserSystem, typename ... Args> requires std::constructible_from<UserSystem, Args...>
     UserSystem& register_system(Args&& ... args);
@@ -23,6 +25,9 @@ private:
 private:
     std::unordered_map<std::type_index, std::unique_ptr<icomponent_system>> m_Data{};
     entity_component_system*                                                m_ECS{};
+
+    component_system_manager(const component_system_manager&) = delete;
+    component_system_manager& operator=(const component_system_manager&) = delete;
 
     friend class entity_component_system;
 };

@@ -4,6 +4,10 @@ RW_ECS_NAMESPACE_BEGIN
 
 class component_manager {
 public:
+    component_manager() = default;
+    component_manager(component_manager&&) = default;
+    component_manager& operator=(component_manager&&) = default;
+
     template<typename Component>
     void register_component(void);
 
@@ -30,6 +34,9 @@ private:
 
 private:
     std::unordered_map<std::type_index, std::unique_ptr<icomponent_pool>> m_Data{};
+
+    component_manager(const component_manager&) = delete;
+    component_manager& operator=(const component_manager&) = delete;
 
     friend class entity_component_system;
 };
