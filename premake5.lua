@@ -5,6 +5,7 @@ workspace "rw-ecs"
     staticruntime   "Off"
     targetdir       "%{wks.location}/output/bin/%{cfg.platform}/%{cfg.buildcfg}/%{prj.name}/"
     objdir          "%{wks.location}/output/obj/%{cfg.platform}/%{cfg.buildcfg}/%{prj.name}/"
+	startproject	"rw-ecs-demo"
 	
 	configurations {
 		"Debug",
