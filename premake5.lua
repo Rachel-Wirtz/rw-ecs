@@ -31,12 +31,13 @@ workspace "rw-ecs"
 		symbols		"Off"
 		
 	project "rw-ecs"
-		kind			"SharedItems"
-		location		"include"
+		kind			"StaticLib"
+		location		"rw-ecs"
 
 		files {			
-			"include/**.h",
-			"include/**.hpp"
+			"rw-ecs/include/**.h",
+			"rw-ecs/include/**.hpp",
+			"rw-ecs/source/**.cpp"
 		}
 
 	project "rw-ecs-demo"
@@ -45,14 +46,13 @@ workspace "rw-ecs"
         language        "C++"
 		
 		files {
-			"rw-ecs/demo/**.h",
-			"rw-ecs/demo/**.hpp",
-			"rw-ecs/demo/**.c",
-			"rw-ecs/demo/**.cpp"
+			"demo/**.h",
+			"demo/**.hpp",
+			"demo/**.cpp"
 		}
 	
 		includedirs {
-			"%{wks.location}/include/"
+			"rw-ecs/include/"
 		}
         
 		links {

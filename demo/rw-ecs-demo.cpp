@@ -1,19 +1,28 @@
 #include "rw-ecs-demo.h"
-#include <iostream>
 
-void NameComponentSystem::update(void) {
-    std::span<const entity_handle> entity_list = this->entities();
-    entity_component_system*       ecs         = this->registry();
 
-    for (entity_handle entity : entity_list) {
-        NameComponent& name_component = ecs->get_component<NameComponent>(entity);
-        std::cout << "Entity #" << entity << " is named \"" << name_component.name << "\"\n";
+struct NameComponent {
+    std::string name;
+};
+
+class NameComponentSystem : public rw::ecs::component_system<NameComponentSystem> {
+public:
+    using component_list = std::tuple<NameComponent>;
+
+    void update(void) {
+        std::span<const rw::ecs::entity_handle> entity_list = this->entities();
+        rw::ecs::entity_component_system* ecs = this->registry();
+
+        for (auto entity : entity_list) {
+            NameComponent& name_component = ecs->get_component<NameComponent>(entity);
+            std::cout << "Entity #" << entity << " is named \"" << name_component.name << "\"\n";
+        }
     }
-}
+};
 
 int main() {
-    entity_component_system ecs{};
-    NameComponentSystem& name_system = ecs.register_system<NameComponentSystem>();
+    rw::ecs::entity_component_system ecs{};
+    ecs.register_system<NameComponentSystem>();
 
     while(true) {
         std::string name{};
@@ -23,11 +32,11 @@ int main() {
         if (name.empty())
             break;
 
-        entity_handle entity = ecs.create_entity();
+        rw::ecs::entity_handle entity = ecs.create_entity();
         ecs.add_component<NameComponent>(entity, std::move(name));
 
         std::cout << "\n";
     };
 
-    name_system.update();
+    ecs.get_system<NameComponentSystem>().update();
 }

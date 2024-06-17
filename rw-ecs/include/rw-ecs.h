@@ -25,29 +25,8 @@
 
 RW_ECS_NAMESPACE_BEGIN
 
-template<std::unsigned_integral Entity>
-constexpr inline Entity invalid_entity = std::numeric_limits<Entity>::max();
-
-template<std::unsigned_integral Entity>
-class basic_entity_pool;
-
-template<std::unsigned_integral Entity>
-class basic_entity_manager;
-
-template<std::unsigned_integral Entity, typename Component>
-class basic_component_pool;
-
-template<std::unsigned_integral Entity>
-class basic_component_manager;
-
-template<std::unsigned_integral Entity, typename UserSystem>
-class basic_component_system;
-
-template<std::unsigned_integral Entity>
-class basic_component_system_manager;
-
-template<std::unsigned_integral Entity>
-class basic_entity_component_system;
+// Adjust me as needed:
+using entity_handle = uint32_t;
 
 RW_ECS_NAMESPACE_END
 
