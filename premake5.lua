@@ -39,6 +39,10 @@ workspace "rw-ecs"
 			"rw-ecs/include/**.hpp",
 			"rw-ecs/source/**.cpp"
 		}
+	
+		includedirs {
+			"rw-ecs/include/"
+		}        
 
 	project "rw-ecs-demo"
         kind            "ConsoleApp"
