@@ -25,6 +25,7 @@ int main() {
 
         entity_handle entity = ecs.create_entity();
         ecs.add_component<NameComponent>(entity, std::move(name));
+
         std::cout << "\n";
     };
 
