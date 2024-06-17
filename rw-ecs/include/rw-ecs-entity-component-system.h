@@ -48,8 +48,8 @@ private:
 
 private:
     entity_manager           m_EntityManager;
-    component_manager        m_ComponentManager;
     component_system_manager m_SystemManager;
+    component_manager        m_ComponentManager;
 
     entity_component_system(const entity_component_system&) = delete;
     entity_component_system& operator=(const entity_component_system&) = delete;
